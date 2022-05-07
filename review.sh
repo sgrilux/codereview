@@ -21,53 +21,53 @@ function validate_repo() {
 }
 
 function branch_exist() {
-  git show-ref -q remotes/origin/$1 && return 0 || return 1
+  git show-ref -q "remotes/origin/$1" && return 0 || return 1
 
 }
 
-function continue() {
+function press_a_key() {
   echo
-  read -p "Press enter to continue"
+  read -pr "Press enter to continue"
   echo
 }
 
 function is_dir_empty() {
-  [ "$(ls -A $1)" ] && return 1 || return 0
+  [ "$(ls -A "$1")" ] && return 1 || return 0
 }
 
-[[ $# < 2 ]] && usage && exit 10
+[[ $# -lt 2 ]] && usage && exit 10
 
 repo=$1
 branch=$2
 
-! validate_repo ${repo} && echo "Please provide a valid git repository url!" && exit 20
+! validate_repo "${repo}" && echo "Please provide a valid git repository url!" && exit 20
 
-repo_name=$(echo ${repo##*/}|cut -d'.' -f1)
-repo_dir=.repo/${repo_name}
-mkdir -p ${repo_dir}
+repo_name=$(echo "${repo##*/}"|cut -d'.' -f1)
+repo_dir=".repo/${repo_name}"
+mkdir -p "${repo_dir}"
 
 echo "Repository already exist...pulling updates"
-if [ -d ${repo_dir} ] && ! is_dir_empty ${repo_dir}; then
-  cd ${repo_dir}
+if [ -d "${repo_dir}" ] && ! is_dir_empty "${repo_dir}"; then
+  cd "${repo_dir}"
   git checkout ${MAIN_BRANCH}
   git pull
 else
   echo "Cloning repo ${repo} into ${repo_dir}..."
-  git clone -q ${repo} ${repo_dir}
-  cd ${repo_dir}
+  git clone -q "${repo}" "${repo_dir}"
+  cd "${repo_dir}"
 fi
 
 echo
 
-! branch_exist ${branch} && echo "Branch provided does not exists!" && exit 30
+! branch_exist "${branch}" && echo "Branch provided does not exists!" && exit 30
 
 echo "Running tflint..."
-tflint $(git diff --name-only --diff-filter=ACMR origin/${branch}...${MAIN_BRANCH} -- *.ts)
+tflint "$(git diff --name-only --diff-filter=ACMR origin/"${branch}"...${MAIN_BRANCH} -- *.ts)"
 
-continue
+press_a_key
 
 echo "Running shellcheck..."
-shellcheck $(git diff --name-only --diff-filter=ACMR origin/${branch}...${MAIN_BRANCH} -- *.sh)
+shellcheck "$(git diff --name-only --diff-filter=ACMR origin/"${branch}"...${MAIN_BRANCH} -- *.sh)"
 
-continue
+press_a_key
 
