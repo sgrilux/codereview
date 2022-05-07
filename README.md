@@ -12,12 +12,19 @@ I am a AWS Cloud Architect so I won't be focusing mostly on IaC and just few lan
 
 So here's some tools I will be using:
 
+- `shelcheck`: for shell scriptin linting
 - `tflint` and `terraform fmt`for terraform linting
 - `cfn-lint` for Cloudformation linting
 - `hadolint` for Docker linting
 - `checkov` 
 
 I use Mac so installation instruction will be based on `brew` where available.
+
+## |shellcheck](https://github.com/koalaman/shellcheck)
+
+```shell
+brew install shellcheck
+```
 
 ## [TFlint](https://github.com/terraform-linters/tflint)
 
