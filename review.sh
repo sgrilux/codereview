@@ -62,12 +62,12 @@ echo
 ! branch_exist "${branch}" && echo "Branch provided does not exists!" && exit 30
 
 echo "Running tflint..."
-git diff --name-only --diff-filter=ACMR --diff-filter=ACMR origin/"${branch}"...${MAIN_BRANCH} -- '***.tf' | tflint
+git diff --name-only --diff-filter=ACMR --diff-filter=ACMR origin/"${MAIN_BRANCH}"...${branch} -- '***.tf' | tflint
 
 press_a_key
 
 echo "Running shellcheck..."
-shellcheck "$(git diff --name-only --diff-filter=ACMR origin/"${branch}"...${MAIN_BRANCH} -- *.sh)"
+git diff --name-only --diff-filter=ACMR --diff-filter=ACMR origin/"${MAIN_BRANCH}"...${branch} -- '***.sh' | shellcheck
 
 press_a_key
 
