@@ -62,7 +62,7 @@ echo
 ! branch_exist "${branch}" && echo "Branch provided does not exists!" && exit 30
 
 echo "Running tflint..."
-tflint "$(git diff --name-only --diff-filter=ACMR origin/"${branch}"...${MAIN_BRANCH} -- *.ts)"
+git diff --name-only --diff-filter=ACMR origin/master...LEET-910/deployment-role-ecr-permission -- '***.tf' | tflint
 
 press_a_key
 
