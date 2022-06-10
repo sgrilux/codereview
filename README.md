@@ -20,32 +20,32 @@ So here's some tools I will be using:
 
 I use Mac so installation instruction will be based on `brew` where available.
 
-## |shellcheck](https://github.com/koalaman/shellcheck)
+## [shellcheck](https://github.com/koalaman/shellcheck)
 
-```shell
+```bash
 brew install shellcheck
 ```
 
 ## [TFlint](https://github.com/terraform-linters/tflint)
 
-```shell
+```bash
 brew install tflint
 ```
 
 ## [cfn-lint](https://github.com/aws-cloudformation/cfn-lint)
 
-```shell
+```bash
 brew install cfn-lint
 ```
 
 ## [checkov](https://www.checkov.io)
 
-```shell
+```bash
 pip install checkov
 ```
 
 or 
 
-```shell
+```bash
 pip3 install checkov
 ```
